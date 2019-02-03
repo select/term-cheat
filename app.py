@@ -424,6 +424,10 @@ screen = Screen()
 loop = urwid.MainLoop(ui_body, palette, screen, unhandled_input=unhandledInput)
 
 
-if '__main__' == __name__ or urwid.web_display.is_web_request():
+def run():
     loop.screen.set_terminal_properties(colors=256)
     loop.run()
+
+
+if '__main__' == __name__ or urwid.web_display.is_web_request():
+    run()

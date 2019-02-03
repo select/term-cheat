@@ -9,8 +9,6 @@ setup(name='TermCheat',
       author_email='falko@webpgr.com',
       url='https://github.com/select/term-cheat',
       packages=['app'],
+      package_data={'app': 'commands.yaml'},
       install_requires=['urwid', 'fuzzywuzzy', 'yaml', 'logging']
-     )
-
-from distutils.core import setup
-
+      )
