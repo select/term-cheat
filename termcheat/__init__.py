@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import os
 import sys
+import os
+from os import path
 import urwid
 import urwid.curses_display
 import urwid.raw_display
@@ -10,9 +11,20 @@ import subprocess
 import fuzzywuzzy.process
 import logging
 import yaml
+from appdirs import AppDirs
+
+dirs = AppDirs("term-cheat", "Select")
+commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
+# If the base commands do not exist copy them from the main app.
+if not path.isfile(commands_file_path):
+    os.makedirs(dirs.user_data_dir)
+    from shutil import copyfile
+    copyfile('./commands.yaml', commands_file_path)
 
 
+# disable logging or fuzzywuzzy will destroy the UI
 logging.basicConfig(level=logging.ERROR)
+
 app_state = {
     'mode': 'list',
     'filterd': False,
@@ -40,10 +52,11 @@ def indexCommands():
             app_state[key + '_lookup'][c['all']] = c
 
 
-with open('./commands.yaml', 'r') as stream:
+with open(commands_file_path, 'r') as stream:
     app_state['commands'] = yaml.load(stream)
     app_state['commands_unfilterd'] = app_state['commands'].copy()
 indexCommands()
+
 
 color_grey = 'g93'
 color_grey1 = 'g89'
@@ -218,7 +231,7 @@ def runCommand(e=None):
     urwid.ExitMainLoop()
     command_string.app_state['commands'][app_state['commandIndex']]['command']
     # if '|' in command_string:
-    command_string = 'bash ./exex.sh %s'%command_string
+    command_string = 'bash ./exex.sh %s' % command_string
     cmd = command_string.split()
     os.execvp(cmd[0], cmd)
 
@@ -261,7 +274,7 @@ def saveCommands():
     for x in out:
         del x['all']
         del x['index']
-    with open('./commands.yaml', 'w') as stream:
+    with open(commands_file_path, 'w') as stream:
         yaml.dump(out, stream, default_flow_style=False)
 
 

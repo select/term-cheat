@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 
-import app
+import termcheat
 
-app.run()
+termcheat.run()

@@ -10,6 +10,7 @@ urwid = "*"
 fuzzywuzzy = "*"
 python-levenshtein = "*"
 pyyaml = "*"
+appdirs = "*"
 
 [requires]
 python_version = "3.6"

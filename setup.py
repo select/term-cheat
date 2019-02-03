@@ -3,12 +3,12 @@
 from distutils.core import setup
 
 setup(name='TermCheat',
-      version='0.1.0',
+      version='0.1.1',
       description='Collect and find termial commands.',
       author='@select@github.com',
       author_email='falko@webpgr.com',
       url='https://github.com/select/term-cheat',
-      packages=['app'],
-      package_data={'app': 'commands.yaml'},
-      install_requires=['urwid', 'fuzzywuzzy', 'yaml', 'logging']
+      packages=['termcheat'],
+      include_package_data=True,
+      install_requires=['urwid', 'fuzzywuzzy', 'pyyaml']
       )
