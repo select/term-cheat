@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
+import os
+import sys
 import urwid
 import urwid.curses_display
 import urwid.raw_display
 import urwid.web_display
 import urwid.util
-import os
 import subprocess
 import fuzzywuzzy.process
 import logging
 import yaml
-import sys
 
 
 logging.basicConfig(level=logging.ERROR)
@@ -33,16 +33,16 @@ app_state = {
 
 def indexCommands():
     for key in ['commands', 'commands_unfilterd']:
-        commands = app_state[key];
+        commands = app_state[key]
         for idx, c in enumerate(commands):
-            c['all'] = ' '.join([v for k, v in c.items() if k not in ('all','index')])
+            c['all'] = ' '.join([v for k, v in c.items() if k not in ('all', 'index')])
             c['index'] = idx
-            app_state[key+'_lookup'][c['all']] = c
+            app_state[key + '_lookup'][c['all']] = c
 
 
 with open('./commands.yaml', 'r') as stream:
     app_state['commands'] = yaml.load(stream)
-    app_state['commands_unfilterd'] = app_state['commands']
+    app_state['commands_unfilterd'] = app_state['commands'].copy()
 indexCommands()
 
 color_grey = 'g93'
@@ -84,7 +84,6 @@ def unhandledInput(key):
 
     if app_state['mode'] is 'list':
         if key in ('e', 'c'):
-            ui_message.set_text(str(key) + ' ' + str(app_state['commandIndex']) + app_state['mode'])
             startEditOrClone(key)
         if key is 'd':
             deleteCommand()
@@ -100,9 +99,9 @@ def unhandledInput(key):
         if key in ('a', 'ctrl n'):
             startEditOrClone('a')
         if key is 'esc':
-            ui_message.set_text('list'+ key+'  '+str(app_state['filterd']))
             if app_state['filterd']:
                 app_state['filterd'] = False
+                ui_esc_filtered.set_text('')
                 ui_input_filter.edit_text = ''
                 ui_main_frame.body = menu(app_state['commands_unfilterd'])
             else:
@@ -110,7 +109,6 @@ def unhandledInput(key):
         return
 
     if app_state['mode'] is 'filter':
-        ui_message.set_text('filter'+ key+'  '+str(app_state['filterd']))
         if key is 'esc':
             ui_input_filter.edit_text = ''
             ui_main_frame.body = menu(app_state['commands_unfilterd'])
@@ -133,7 +131,6 @@ def newCommand(command=False):
 
 def deleteCommand(e=None):
     key = app_state['commands'][app_state['commandIndex']]['all']
-    ui_message.set_text('doing it'+str(app_state['commands_unfilterd_lookup'][key]['index']))
     del app_state['commands_unfilterd'][app_state['commands_unfilterd_lookup'][key]['index']]
     del app_state['commands'][app_state['commandIndex']]
     ui_main_frame.body = menu(app_state['commands'])
@@ -154,7 +151,6 @@ def startEditOrClone(key):
         app_state['commandIndex'] = -1  # indicate that we are not editing an existing entry anmymore
     ui_main_frame.footer = uiEditor(command)
     ui_main_frame.focus_position = 'footer'
-    ui_message.set_text('doing it')
     # ui_body.footer = ui_editor_footer
     app_state['mode'] = 'edit'
 
@@ -220,7 +216,10 @@ def menu(commands):
 def runCommand(e=None):
     loop.stop()
     urwid.ExitMainLoop()
-    cmd = app_state['commands'][app_state['commandIndex']]['command'].split()
+    command_string.app_state['commands'][app_state['commandIndex']]['command']
+    # if '|' in command_string:
+    command_string = 'bash ./exex.sh %s'%command_string
+    cmd = command_string.split()
     os.execvp(cmd[0], cmd)
 
 
@@ -233,14 +232,14 @@ def itemChosen(button, choice):
 
 def onFilter(text, other):
     if (ui_input_filter.edit_text):
-        hits = fuzzywuzzy.process.extract(ui_input_filter.edit_text, [c['all'] for c in app_state['commands']])
-        app_state['commandsUnfilterd'] = app_state['commands']
+        hits = fuzzywuzzy.process.extract(ui_input_filter.edit_text, [c['all'] for c in app_state['commands_unfilterd']])
         ui_num_results.set_text(' %s matches' % (len(hits)))
-        ui_main_frame.body = menu([app_state['commands_lookup'][r[0]] for r in hits])
+        ui_main_frame.body = menu([app_state['commands_unfilterd_lookup'][r[0]] for r in hits])
         ui_esc_filtered.set_text('')
         ui_esc_filtered.set_text([('hightlightKey', 'Esc'), ' clear filter'])
         return
     ui_main_frame.body = menu(app_state['commands_unfilterd'])
+    ui_num_results.set_text(' %s matches' % (len(app_state['commands_unfilterd'])))
 
 
 def createEditText(name, command, height=1):
@@ -258,7 +257,7 @@ def cancelEdit(e=None):
 
 
 def saveCommands():
-    out = app_state['commands'].copy()
+    out = app_state['commands_unfilterd'].copy()
     for x in out:
         del x['all']
         del x['index']
@@ -267,12 +266,16 @@ def saveCommands():
 
 
 def saveEdit(e=None):
+    old_command = app_state['commands'][app_state['commandIndex']]
     new_command = dict([[key, ui_editor.get_edit_text()] for key, ui_editor in app_state['editor'].items()])
     if app_state['commandIndex'] <= 0:  # new command will be created
         app_state['commands'].append(new_command)
         app_state['commands_unfilterd'].append(new_command)
     else:
-        app_state['commands'][app_state['commandIndex']] = new_command
+        for k, v in new_command.items():
+            old_command[k] = v
+        # app_state['commands_unfilterd'][app_state['commands_unfilterd_lookup'][old_command['all']]['index']] = new_command
+        # app_state['commands'][app_state['commandIndex']] = new_command
     indexCommands()
     ui_main_frame.body = menu(app_state['commands'])
     cancelEdit()
@@ -402,7 +405,7 @@ ui_footer = urwid.AttrMap(urwid.Columns([
     seperator(),
     customButtonFooter('q', 'uit ', exit),
     ui_esc_filtered,
-    ui_message,
+    ('pack', ui_message),
 ]), 'footer')
 
 ui_main_frame = urwid.Frame(menu(app_state['commands']))
