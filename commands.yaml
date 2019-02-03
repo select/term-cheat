@@ -18,10 +18,6 @@
   description: list all applications that are opening a port
   name: listening ports
   tags: port network listen
-- command: ls -l|wc -l
-  description: count the number of files in this directory
-  name: number of files
-  tags: ls list files dir
 - command: lsblk
   description: see your hard drive block devices
   name: list block devices
@@ -46,11 +42,6 @@
   description: list all applications that are opening a port
   name: new netstat
   tags: port network listen
-- command: history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn
-    | head
-  description: print a list of your most used commands
-  name: most used commands
-  tags: ''
 - command: cal
   description: show the current month calendar
   name: calendar
