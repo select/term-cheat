@@ -4,6 +4,11 @@ original_commands = [
         "description": "list the content of the current directory",
         "name": "list directory",
         "tags": "ls ll list dir files"
+    }, {
+        "command": "ls -1 | wc -l",
+        "description": "count the number of files in a directory",
+        "name": "number of files",
+        "tags": "list",
     },
     {
         "command": "mc ./",
@@ -52,12 +57,6 @@ original_commands = [
         "description": "simple",
         "name": "simple text editor",
         "tags": "write "
-    },
-    {
-        "command": "moo",
-        "description": "",
-        "name": "test",
-        "tags": ""
     },
     {
         "command": "netstat -tulpn",
