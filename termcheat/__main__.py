@@ -12,14 +12,16 @@ import fuzzywuzzy.process
 import logging
 import yaml
 from appdirs import AppDirs
+from commands import original_commands
+
 
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
 # If the base commands do not exist copy them from the main app.
 if not path.isfile(commands_file_path):
     os.makedirs(dirs.user_data_dir)
-    from shutil import copyfile
-    copyfile('./commands.yaml', commands_file_path)
+    with open(commands_file_path, 'w') as stream:
+        yaml.dump(original_commands, stream, default_flow_style=False)
 
 
 # disable logging or fuzzywuzzy will destroy the UI
