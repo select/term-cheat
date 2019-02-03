@@ -9,6 +9,6 @@ setup(name='TermCheat',
       author_email='falko@webpgr.com',
       url='https://github.com/select/term-cheat',
       packages=['termcheat'],
-      package_data={'termcheat': 'commands.yaml'},
+      package_data={'termcheat': ['commands.yaml']},
       install_requires=['urwid', 'fuzzywuzzy', 'pyyaml', 'appdirs']
       )
