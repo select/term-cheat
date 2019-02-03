@@ -13,4 +13,4 @@ parts:
     source-type: git
 apps:
   term-cheat:
-    command: python3 term-cheat
+    command: python3 termcheat
