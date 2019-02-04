@@ -3,7 +3,7 @@ version: git
 summary: Collect and find termial commands.
 description: |
   TermCheat is a searchable library of commands that you can copy remix and extend.
-confinement: devmode
+confinement: classic
 base: core18
 parts:
   term-cheat:
