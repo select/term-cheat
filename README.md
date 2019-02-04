@@ -7,10 +7,8 @@ TermCheat is a searchable library of commands that you can copy remix and extend
 ## Usage
 
 ```bash
-term-cheat #this would be nice, I'm currently checking out how to create a snap package
+term-cheat
 ```
-
-TermCheat currently does not support commands with pipes, if you know how to do this, help would be appreciated!
 
 ## Keyboard Shortcuts
 
@@ -31,13 +29,21 @@ In *filter* mode
 
 ## Installation
 
+Install the snap package
+```bash
+snap install term-cheat
+```
+
+Install from source
 ```bash
 git clone https://github.com/select/term-cheat.git
 cd term-cheat
 pipenv install
 pipenv shell
-./app.py
+python3 termcheat
 ```
+
+
 
 ## Motivation
 
