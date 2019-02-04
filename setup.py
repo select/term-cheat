@@ -10,5 +10,5 @@ setup(name='TermCheat',
       url='https://github.com/select/term-cheat',
       packages=['termcheat'],
       package_data={'termcheat': ['*.yaml']},
-      install_requires=['urwid', 'fuzzywuzzy', 'pyyaml', 'appdirs']
+      install_requires=['urwid', 'fuzzywuzzy', 'pyyaml', 'appdirs', 'python-Levenshtein']
       )

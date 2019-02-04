@@ -11,8 +11,6 @@ parts:
     python-version: python3
     source: .
     source-type: git
-    stage-packages:
-      - python-levenshtein
 apps:
   term-cheat:
     command: python3 termcheat
