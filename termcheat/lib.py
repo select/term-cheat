@@ -18,8 +18,9 @@ from commands import original_commands
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
 # If the base commands do not exist copy them from the main app.
-if not path.isfile(commands_file_path):
+if not os.path.exists(dirs.user_data_dir):
     os.makedirs(dirs.user_data_dir)
+if not path.isfile(commands_file_path):
     with open(commands_file_path, 'w') as stream:
         yaml.dump(original_commands, stream, default_flow_style=False)
 
