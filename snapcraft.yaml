@@ -12,6 +12,13 @@ parts:
     python-version: python3
     source: .
     source-type: git
+  python-wrapper:
+    plugin: dump
+    source: bin
+    stage:
+      - term-cheat-app
+    prime:
+      - term-cheat-app
 apps:
   term-cheat:
-    command: bin/term-cheat-app
+    command: term-cheat-app

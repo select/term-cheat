@@ -12,8 +12,10 @@ import fuzzywuzzy.process
 import logging
 import yaml
 from appdirs import AppDirs
-from commands import original_commands
 
+original_commands = []
+with open(join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r') as stream:
+    original_commands = yaml.load(stream)
 
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')

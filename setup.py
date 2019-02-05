@@ -8,11 +8,11 @@ setup(name='TermCheat',
       author='@select@github.com',
       author_email='falko@webpgr.com',
       url='https://github.com/select/term-cheat',
-      packages=['termcheat', 'bin'],
+      packages=['termcheat'],
       package_data={'termcheat': ['*.yaml']},
       entry_points={
-          'console_scripts': ['term-cheat-app1=termcheat:run']
+          'console_scripts': ['term-cheat-app = termcheat.lib:run']
       },
-      scripts=["bin/term-cheat-app"],
+      # scripts=["bin/term-cheat-app"],
       install_requires=['urwid', 'fuzzywuzzy', 'pyyaml', 'appdirs', 'python-Levenshtein']
       )
