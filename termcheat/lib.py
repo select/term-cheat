@@ -14,7 +14,7 @@ import yaml
 from appdirs import AppDirs
 
 original_commands = []
-with open(join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r') as stream:
+with open(path.join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r') as stream:
     original_commands = yaml.load(stream)
 
 dirs = AppDirs("term-cheat", "Select")
