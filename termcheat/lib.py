@@ -19,6 +19,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r')
 
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
+
 # If the base commands do not exist copy them from the main app.
 if not os.path.exists(dirs.user_data_dir):
     os.makedirs(dirs.user_data_dir)

@@ -10,9 +10,9 @@ setup(name='TermCheat',
       url='https://github.com/select/term-cheat',
       packages=['termcheat'],
       package_data={'termcheat': ['*.yaml']},
-      entry_points={
-          'console_scripts': ['term-cheat-app = termcheat.lib:run']
-      },
+      # entry_points={
+      #     'console_scripts': ['term-cheat-app = termcheat.lib:run']
+      # },
       # scripts=["bin/term-cheat-app"],
       install_requires=['urwid', 'fuzzywuzzy', 'pyyaml', 'appdirs', 'python-Levenshtein']
       )
