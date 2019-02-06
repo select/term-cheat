@@ -11,7 +11,14 @@ parts:
     plugin: python
     python-version: python3
     source: .
-    source-type: git
+    # source-type:
+    python-packages:
+      - urwid
+      - fuzzywuzzy
+      - pyyaml
+      - appdirs
+      - python-Levenshtein
+      # - sldfjksdf
   python-wrapper:
     plugin: dump
     source: bin
@@ -21,4 +28,5 @@ parts:
       - term-cheat-app
 apps:
   term-cheat:
+    # command: python3 -m termcheat
     command: term-cheat-app
