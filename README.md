@@ -12,6 +12,18 @@ TermCheat is a searchable library of commands that you can copy remix and extend
 term-cheat
 ```
 
+Even better if you add a keyboard shortcut to start TermCheat e.g. <kbd>Ctrl</kbd><kbd>a</kbd> 
+
+Add this to your `.bashrc` or `.zshrc`  or ...
+
+```
+bindkey -s '^A' 'term-cheat^M'
+```
+
+- `-s` simulate keyboard input
+- `^A` <kbd>Ctrl</kbd><kbd>a</kbd>
+- `^M` <kbd>Enter</kbd> key to run the command
+
 ## Keyboard Shortcuts
 
 In *list* mode
