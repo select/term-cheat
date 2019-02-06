@@ -4,6 +4,8 @@
 
 TermCheat is a searchable library of commands that you can copy remix and extend 
 
+![Imgur Image](https://i.imgur.com/smJ3gWu.png)
+
 ## Usage
 
 ```bash
@@ -29,10 +31,11 @@ In *filter* mode
 
 ## Installation
 
-Install the snap package
+<!-- Install the snap package (hopefully soon)
 ```bash
 snap install term-cheat
 ```
+ -->
 
 Install from source
 ```bash
@@ -49,7 +52,7 @@ python3 termcheat
 
 There are two reasons why I created TermCheat. First of all I love using the terminal and lately I have been learning more things like systemd and just could not remember all the commands on the first go. While I use the [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin and reverse history search (<kbd>ctrl</kbd><kbd>r</kbd>) I still had sometimes problems to recall commands. Furthermore both of these options to not give any additional information about the commands. Most modern editors (sublime-text, atom, ...) now have the option to search for commands with ctrl p which I find super helpful. 
 
-Thie second reason which is even more important for me is that I find text base user interface (tui) very cool. They give you a proper hacker feeling and if done right are beautiful and fast. I wanted to challenge myself and see if I could build such an interface, and voila two weekends later I had the first version of TermCheat running. After working many years on web based interfaces building a tui is a really nice experience because it's pure minimalism.
+The second reason which is even more important for me is that I find text base user interface (tui) very cool. They give you a proper hacker feeling and if done right are beautiful and fast. I wanted to challenge myself and see if I could build such an interface, and voila two weekends later I had the first version of TermCheat running. After working many years on web based interfaces building a tui is a really nice experience because it's pure minimalism.
 
 ## License
 
