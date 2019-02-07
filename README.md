@@ -56,7 +56,7 @@ snap install term-cheat
 ```
  -->
 
-To install it from source to the following.
+To install it from source do the following.
 ```bash
 git clone https://github.com/select/term-cheat.git
 cd term-cheat
