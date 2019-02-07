@@ -43,13 +43,20 @@ In *filter* mode
 
 ## Installation
 
+While the package is waiting for approval from the snap store you can install it by downloading it from here and installing it with snap. 
+```
+curl -OL https://raw.github.com/select/term-cheat/master/dist/term-cheat-0.1.7_amd64.snap
+sudo snap install --classic --dangerous term-cheat-0.1.7_amd64.snap
+```
+So far I only tested it with Ubuntu 18.10.
+
 <!-- Install the snap package (hopefully soon)
 ```bash
 snap install term-cheat
 ```
  -->
 
-Install from source
+To install it from source to the following.
 ```bash
 git clone https://github.com/select/term-cheat.git
 cd term-cheat
