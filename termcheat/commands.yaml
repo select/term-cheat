@@ -2,6 +2,10 @@
   description: list the content of the current directory
   name: list directory
   tags: ls ll list dir files
+- command: ls -1 | wc -l
+  description: count the number of files in a directory
+  name: number of files
+  tags: list
 - command: mc ./
   description: directory browser/file manager with two pannels
   name: midnight commander
@@ -31,18 +35,34 @@
   name: ls latest last
   tags: ls dir files borwse
 - command: nano
-  description: simple
+  description: Nano's ANOther editor, an enhanced free Pico clone
   name: simple text editor
-  tags: 'write '
-- command: moo
-  description: ''
-  name: test
-  tags: ''
-- command: netstat -tulpn
-  description: list all applications that are opening a port
-  name: new netstat
-  tags: port network listen
+  tags: 'write file '
+- command: shutdown -h now
+  description: shut this computer down and turn it completely off
+  name: shut down now
+  tags: halt reboot
 - command: cal
   description: show the current month calendar
   name: calendar
   tags: date time
+- command: systemctl list-unit-files --type service
+  description: list all systemd services and their status
+  name: status of services
+  tags: systemd service enabled disabled masked static
+- command: ststemctl status mysql
+  description: show the status of the mysql service
+  name: status of mysql
+  tags: systemd
+- command: hostname -I | awk '{print $1}'
+  description: show the local ip address
+  name: local ip
+  tags: LAN WIFI internet
+- command: ls -la --group-directories-first
+  description: list the content of the current directory
+  name: list directory
+  tags: ls ll list dir files
+- command: ls -la test
+  description: list the content of the current directory
+  name: list directory
+  tags: ls ll list dir files
