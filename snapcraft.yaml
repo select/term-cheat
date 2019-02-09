@@ -3,7 +3,8 @@ version: git
 summary: Collect and find termial commands.
 description: |
   TermCheat is a searchable library of commands that you can copy remix and extend.
-grade: devel
+icon: img/term-cheat.logo.svg
+grade: stable
 confinement: classic
 base: core18
 parts:
@@ -11,7 +12,7 @@ parts:
     plugin: python
     python-version: python3
     source: .
-    # source-type:
+    source-type: git
     python-packages:
       - urwid
       - fuzzywuzzy
@@ -28,5 +29,4 @@ parts:
       - term-cheat-app
 apps:
   term-cheat:
-    # command: python3 -m termcheat
     command: term-cheat-app
