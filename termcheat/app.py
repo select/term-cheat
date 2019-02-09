@@ -12,9 +12,6 @@ import logging
 import yaml
 from appdirs import AppDirs
 
-original_commands = []
-with open(path.join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r') as stream:
-    original_commands = yaml.load(stream)
 
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
@@ -23,6 +20,9 @@ commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
 if not os.path.exists(dirs.user_data_dir):
     os.makedirs(dirs.user_data_dir)
 if not path.isfile(commands_file_path):
+    original_commands = []
+    with open(path.join(path.dirname(path.abspath(__file__)), 'commands.yaml'), 'r') as stream:
+        original_commands = yaml.load(stream)
     with open(commands_file_path, 'w') as stream:
         yaml.dump(original_commands, stream, default_flow_style=False)
 
@@ -44,7 +44,6 @@ app_state = {
     'commands_unfilterd': [],
     'commands_lookup': {},
     'commands_unfilterd_lookup': {},
-
 }
 
 
@@ -148,15 +147,27 @@ def newCommand(command=False):
 
 
 def deleteCommand(e=None):
+    command = app_state['commands'][app_state['commandIndex']]
+    ui_yes = customButton('Delete', onDeleteConfirmed)
+    ui_no = customButton('Cancel', closePopUp)
+    openPopUp(urwid.Pile([
+        urwid.Text('Delete entry "' + command['command']+'"'),
+        urwid.Divider(),
+        urwid.Columns([ui_no, ui_yes])
+    ]))
+
+
+def onDeleteConfirmed(e=None):
     key = app_state['commands'][app_state['commandIndex']]['all']
     del app_state['commands_unfilterd'][app_state['commands_unfilterd_lookup'][key]['index']]
     del app_state['commands'][app_state['commandIndex']]
     ui_main_frame.body = menu(app_state['commands'])
-    if (app_state['commandIndex'] == len(app_state['commands']) - 1):
+    if (app_state['commandIndex'] >= len(app_state['commands']) - 1):
         app_state['commandIndex'] -= 1
     ui_main_frame.body.set_focus(app_state['commandIndex'])
     indexCommands()
-    # saveCommands()
+    saveCommands()
+    closePopUp()
 
 
 def startEditOrClone(key):
@@ -210,7 +221,7 @@ class BoxButton(urwid.WidgetWrap):
 
 def setCommandIndex():
     app_state['commandIndex'] = ui_main_frame.body.focus_position
-    # ui_message.set_text('index '+str(ui_main_frame.body.focus_position))
+    ui_message.set_text('index ' + str(app_state['commandIndex']))
 
 
 def menu(commands):
@@ -236,6 +247,11 @@ def runCommand(e=None, command_string=None):
     urwid.ExitMainLoop()
     if not command_string:
         command_string = app_state['commands'][app_state['commandIndex']]['command']
+    # subprocess.Popen(['bash', '-ic', 'set -o history; history -s "$1"', '_', command_string])
+    subprocess.Popen(['zsh', '-ic', 'print -s "$1"', '_', command_string])
+    # os.system('fc -S "%s"'%command_string)
+    # subprocess.Popen('history -s "%s"'%command_string, shell=True, executable=os.environ['SHELL'])
+    # subprocess.Popen(command_string, shell=True)
     os.system(command_string)
     sys.exit()
 
@@ -372,6 +388,25 @@ def uiEditor(command):
     return urwid.BoxAdapter(urwid.AttrMap(app_state['editListBox'], 'editor'), 12)
 
 
+def openPopUp(widget):
+    w = urwid.Overlay(
+        urwid.AttrMap(
+            urwid.LineBox(urwid.Filler(urwid.Padding(widget, 'center', 36))),
+            'footer'
+        ),
+        ui_body,
+        align='center',
+        width=40,
+        valign='middle',
+        height=9
+    )
+    loop.widget = w
+
+
+def closePopUp(e=None):
+    loop.widget = ui_body
+
+
 ui_editor_footer = urwid.AttrMap(urwid.Text([
     ('hightlightKey', 'Ctrl o'), ' save ',
     ('seperator', u'\uE0B1'), ' ',
@@ -423,19 +458,20 @@ ui_footer = urwid.AttrMap(urwid.Columns([
 ]), 'footer')
 
 ui_main_frame = urwid.Frame(menu(app_state['commands']))
-
 ui_body = urwid.Frame(
     ui_main_frame,
     header=ui_header,
     footer=ui_footer,
 )
 
+
 if urwid.web_display.is_web_request():
     Screen = urwid.web_display.Screen
 else:
     Screen = urwid.raw_display.Screen
 screen = Screen()
-loop = urwid.MainLoop(ui_body, palette, screen, unhandled_input=unhandledInput)
+# loop = urwid.MainLoop(ui_body, palette, screen, unhandled_input=unhandledInput)
+loop = urwid.MainLoop(ui_body, palette, screen, unhandled_input=unhandledInput, pop_ups=True)
 
 
 def run():
