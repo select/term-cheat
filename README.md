@@ -65,6 +65,40 @@ pipenv shell
 python3 termcheat
 ```
 
+## Related Tools and Projects
+
+**Reveser History Search**\
+Search through your shell history with <kbd>Ctrl</kbd><kbd>R</kbd>
+
+**Alias** \
+Create a file that contains aliases for your most used commands. 
+Create a the aliases file with `touch ~/.aliases` and add some aliases like
+```
+alias lt='ls -ltr'
+alias df='pydf -h -B'
+```
+now source the file in your `.bashrc` or `.zshrc` 
+```
+source $HOME/.aliases
+```
+You could write all aliases directly in you rc file but this way it's more portable if you switch from e.g. bash to zsh.
+
+Another trick is to sort your history for the commands you use the most and created aliases for these commands to save you time. Here is a command to get your top ten most used commands:
+```
+history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+```
+
+**Autosuggestions** \
+If you are using zsh there is a neat plugin called [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) which will automatically show you suggestions of commands you used before that you can complete using the right arrow key.
+
+**More Related Projects** \
+
+- [tldr](https://github.com/tldr-pages/tldr)
+- [bropages](http://bropages.org/)
+- [eg](https://github.com/srsudar/eg)
+- [cheat](https://github.com/cheat/cheat) 
+
+If you got other suggestions I would love to include them here.
 
 
 ## Motivation
