@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import sys
+import os, sys
+import argparse
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+import termcheat.app
+
+
+if '__main__' == __name__:
+  parser = argparse.ArgumentParser(
+    description='Collect and search terminal commands.',
+    epilog='Your personal terminal cheat sheet')
+  parser.add_argument(
+    '-f',
+    '--filter',
+    action='store_const',
+    const=True,
+    help='start in filter mode'
+  )
+
+  try:
+    options = parser.parse_args()
+  except:
+    # parser.print_help()
+    sys.exit(0)
+
+  termcheat.app.run(options.filter)
