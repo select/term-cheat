@@ -17,7 +17,7 @@ Even better if you add a keyboard shortcut to start TermCheat e.g. <kbd>Ctrl</kb
 Add this to your `.bashrc` or `.zshrc`  or ...
 
 ```
-bindkey -s '^A' 'term-cheat^M'
+bindkey -s '^A' 'term-cheat --filter^M'
 ```
 
 - `-s` simulate keyboard input
