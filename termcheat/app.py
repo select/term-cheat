@@ -12,7 +12,7 @@ import logging
 import yaml
 from appdirs import AppDirs
 
-
+a = 'hello'
 dirs = AppDirs("term-cheat", "Select")
 commands_file_path = path.join(dirs.user_data_dir, 'commands.yaml')
 
@@ -474,8 +474,10 @@ screen = Screen()
 loop = urwid.MainLoop(ui_body, palette, screen, unhandled_input=unhandledInput, pop_ups=True)
 
 
-def run():
+def run(enable_filter=False):
     loop.screen.set_terminal_properties(colors=256)
+    if enable_filter:
+        startFilter()
     loop.run()
 
 

@@ -4,7 +4,7 @@ from distutils.core import setup
 
 
 setup(name='TermCheat',
-      version='0.1.8',
+      version='0.1.11',
       description='Collect and find termial commands.',
       author='@select@github.com',
       author_email='falko@webpgr.com',
