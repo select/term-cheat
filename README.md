@@ -4,7 +4,7 @@
 
 TermCheat is a searchable library of commands that you can copy remix and extend 
 
-![Imgur Image](https://i.imgur.com/smJ3gWu.png)
+![TermCheat screenshot](img/Screenshot-TermCheat.png?raw=true)
 
 ## Usage
 
