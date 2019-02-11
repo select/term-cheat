@@ -45,7 +45,7 @@ In *filter* mode
 
 While the package is waiting for approval from the snap store you can install it by downloading it from here and installing it with snap. 
 ```
-curl -OL https://raw.github.com/select/term-cheat/master/dist/term-cheat-0.1.7_amd64.snap
+curl -OL https://github.com/select/term-cheat/releases/download/0.1.11/term-cheat-0.1.11_amd64.snap
 sudo snap install --classic --dangerous term-cheat-0.1.11_amd64.snap
 ```
 So far I only tested it with Ubuntu 18.10.
