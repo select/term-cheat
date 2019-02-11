@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-TermCheat is a searchable library of commands that you can copy remix and extend 
+TermCheat is a searchable library of commands that you can copy remix and extend.  
 
 ![TermCheat screenshot](img/Screenshot-TermCheat.png?raw=true)
 
@@ -48,13 +48,7 @@ While the package is waiting for approval from the snap store you can install it
 curl -OL https://github.com/select/term-cheat/releases/download/0.1.11/term-cheat-0.1.11_amd64.snap
 sudo snap install --classic --dangerous term-cheat-0.1.11_amd64.snap
 ```
-So far I only tested it with Ubuntu 18.10.
 
-<!-- Install the snap package (hopefully soon)
-```bash
-snap install term-cheat
-```
- -->
 
 To install it from source do the following.
 ```bash
@@ -62,7 +56,7 @@ git clone https://github.com/select/term-cheat.git
 cd term-cheat
 pipenv install
 pipenv shell
-python3 termcheat
+python3 term-cheat-app
 ```
 
 ## Related Tools and Projects
